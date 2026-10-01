@@ -3,64 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAMILI 100 — Edisi Kelas 3 SD</title>
+<title>SIAPA MAU JADI MILIARIS? • Kelas 3 SD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg1:#1e1b4b; --bg2:#4c1d95; --gold:#fbbf24; --gold2:#f59e0b;
-    --panel:#ffffff; --ink:#1f2937; --ok:#22c55e; --bad:#ef4444;
+    --gold:#fbbf24; --gold2:#f59e0b; --panel:#ffffff; --ink:#1f2937;
+    --ok:#22c55e; --bad:#ef4444; --navy:#0a1230;
   }
   *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
   html,body{height:100%;}
   body{
     font-family:'Baloo 2','Comic Sans MS','Chalkboard SE',system-ui,sans-serif;
-    color:var(--ink);
-    background:linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 55%,#7c3aed 100%);
+    color:#e2e8f0;
+    background:radial-gradient(1200px 700px at 50% 8%, #2c3f8f 0%, #16224e 45%, var(--navy) 100%);
     background-attachment:fixed;
     min-height:100vh;
   }
   #fx{position:fixed; inset:0; pointer-events:none; z-index:999;}
-  #app{max-width:980px; margin:0 auto; padding:14px 14px 40px; min-height:100vh; display:flex; flex-direction:column;}
+  #app{max-width:1080px; margin:0 auto; padding:14px 14px 40px; min-height:100vh; display:flex; flex-direction:column;}
 
   /* ===== TOP BAR ===== */
   .topbar{display:flex; align-items:stretch; gap:10px; margin-bottom:14px;}
-  .teambox{flex:1; background:var(--panel); border-radius:16px; padding:8px 12px; text-align:center; border-bottom:5px solid #cbd5e1; position:relative; transition:.2s;}
-  .teambox .tname{font-weight:800; font-size:clamp(14px,2.5vw,19px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .teambox .tscore{font-size:clamp(26px,5vw,40px); font-weight:800; color:#7c3aed; line-height:1;}
-  .teambox.turn{outline:4px solid var(--gold); box-shadow:0 0 24px rgba(251,191,36,.55); border-bottom-color:var(--gold2);}
-  .teambox .chip{position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--gold); color:#78350f; font-size:11px; font-weight:800; padding:2px 10px; border-radius:99px; white-space:nowrap;}
-  .roundinfo{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; min-width:120px;}
-  .roundinfo .rno{color:#e9d5ff; font-size:13px; font-weight:700;}
-  .badge{display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.25); color:#fff; font-weight:700; padding:5px 12px; border-radius:99px; font-size:clamp(12px,2vw,15px); white-space:nowrap;}
-  .mute{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.25); color:#fff; border-radius:12px; width:42px; font-size:18px; cursor:pointer;}
+  .box{flex:1; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:16px; padding:8px 12px; text-align:center; transition:.2s;}
+  .box .tname{font-weight:800; font-size:clamp(13px,2.4vw,18px); color:#cbd5e1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .box .tscore{font-size:clamp(22px,4.4vw,36px); font-weight:800; color:var(--gold); line-height:1.15;}
+  .box.turn{outline:3px solid var(--gold); box-shadow:0 0 24px rgba(251,191,36,.45);}
+  .box .chip{display:block; font-size:10px; font-weight:800; color:var(--gold); letter-spacing:.5px;}
+  .roundinfo{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; min-width:130px;}
+  .rno{color:#93a3d9; font-size:13px; font-weight:700;}
+  .badge{display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:#fff; font-weight:700; padding:5px 12px; border-radius:99px; font-size:clamp(11px,2vw,14px); white-space:nowrap;}
+  .mute{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:#fff; border-radius:12px; width:42px; font-size:18px; cursor:pointer;}
+  .tbtns{display:flex; flex-direction:column; gap:6px; justify-content:center;}
+  .tbtns .mute{height:42px;}
 
-  /* ===== CARDS / SCREENS ===== */
+  /* ===== SCREENS ===== */
   .screen{display:none; flex-direction:column; flex:1;}
   .screen.show{display:flex;}
-  .card{background:var(--panel); border-radius:20px; padding:22px; box-shadow:0 18px 50px rgba(0,0,0,.35);}
+  .card{background:var(--panel); border-radius:20px; padding:22px; color:var(--ink); box-shadow:0 18px 50px rgba(0,0,0,.45);}
+  .linkbtn{background:none; border:none; color:#93a3d9; font-family:inherit; font-weight:700; font-size:13px; cursor:pointer; text-decoration:underline;}
 
   /* intro */
-  #screen-intro{align-items:center; justify-content:center; text-align:center; gap:18px;}
-  .logo{font-size:clamp(44px,9vw,84px); font-weight:800; letter-spacing:2px; color:#fff; line-height:1; text-shadow:0 4px 0 #92400e, 0 10px 30px rgba(0,0,0,.5);}
-  .logo .hundred{color:var(--gold);}
-  .subtitle{color:#e9d5ff; font-weight:700; font-size:clamp(15px,3vw,20px);}
+  #screen-intro{align-items:center; justify-content:center; text-align:center; gap:16px;}
+  .logo{font-size:clamp(30px,6.8vw,62px); font-weight:800; letter-spacing:1px; color:#fff; line-height:1.1; text-shadow:0 0 40px rgba(251,191,36,.35), 0 4px 0 #92400e, 0 10px 30px rgba(0,0,0,.5);}
+  .logo .gold{color:var(--gold);}
+  .subtitle{color:#c7d2fe; font-weight:700; font-size:clamp(14px,2.6vw,19px);}
   .teamform{display:flex; gap:12px; flex-wrap:wrap; justify-content:center;}
   .teamform input{font-family:inherit; font-size:18px; font-weight:700; padding:12px 16px; border-radius:14px; border:3px solid #c4b5fd; width:min(260px,42vw); text-align:center; outline:none;}
-  .teamform input:focus{border-color:var(--gold);}
+  .teamform input:focus{border-color:var(--gold2);}
   .btn{font-family:inherit; font-weight:800; border:none; cursor:pointer; border-radius:16px; padding:14px 34px; font-size:20px; background:linear-gradient(180deg,#fcd34d,#f59e0b); color:#78350f; box-shadow:0 6px 0 #b45309, 0 12px 24px rgba(0,0,0,.35); transition:.12s;}
   .btn:active{transform:translateY(4px); box-shadow:0 2px 0 #b45309;}
   .btn.blue{background:linear-gradient(180deg,#93c5fd,#3b82f6); color:#0b2e63; box-shadow:0 6px 0 #1d4ed8, 0 12px 24px rgba(0,0,0,.35);}
+  .btn.blue:active{box-shadow:0 2px 0 #1d4ed8;}
   .btn.small{font-size:15px; padding:9px 18px; border-radius:12px;}
-  .btn.ghost{background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.3); box-shadow:none;}
-  .howto{color:#ddd6fe; font-size:14px; max-width:640px; line-height:1.55;}
+  .btn.ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.3); box-shadow:none;}
+  .btn:disabled{opacity:.45; cursor:not-allowed;}
+  .howto{color:#c7d2fe; font-size:14px; max-width:680px; line-height:1.55;}
   .howto b{color:var(--gold);}
 
   /* picker */
   #screen-picker h2, #screen-over h2{color:#fff; text-align:center; margin-bottom:14px; font-size:clamp(20px,4vw,30px);}
   .pickgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px;}
-  .pick{display:flex; align-items:center; gap:14px; background:var(--panel); border:none; border-radius:18px; padding:16px 18px; cursor:pointer; font-family:inherit; text-align:left; border-bottom:6px solid #cbd5e1; transition:.15s;}
-  .pick:hover{transform:translateY(-3px); box-shadow:0 14px 30px rgba(0,0,0,.4);}
+  .pick{display:flex; align-items:center; gap:14px; background:rgba(255,255,255,.96); border:none; border-radius:18px; padding:16px 18px; cursor:pointer; font-family:inherit; text-align:left; border-bottom:6px solid #cbd5e1; color:var(--ink); transition:.15s;}
+  .pick:hover:not(:disabled){transform:translateY(-3px); box-shadow:0 14px 30px rgba(0,0,0,.4);}
   .pick:disabled{opacity:.35; cursor:not-allowed; transform:none;}
   .pick .ic{font-size:34px; width:58px; height:58px; border-radius:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
   .pick .pn{font-weight:800; font-size:18px;}
@@ -68,137 +73,67 @@
   .pick .diffline{font-size:13px; font-weight:700; margin-top:2px; letter-spacing:.5px;}
   .pick .zero{opacity:.35;}
 
-  /* board */
-  .qcard{background:var(--panel); border-radius:18px; padding:16px 20px; text-align:center; margin-bottom:12px; border-bottom:6px solid var(--gold2);}
-  .qcard .qm {font-size:clamp(17px,3.4vw,26px); font-weight:800; line-height:1.35;}
-  .bankrow{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
-  .bank{background:var(--gold); color:#78350f; font-weight:800; padding:8px 18px; border-radius:99px; font-size:clamp(15px,2.6vw,20px); box-shadow:0 4px 0 #b45309;}
-  .strikes{display:flex; gap:6px;}
-  .strike{width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,.15); border:2px solid rgba(255,255,255,.3); color:rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800;}
-  .strike.on{background:#fee2e2; border-color:var(--bad); color:var(--bad); animation:pop .3s;}
-  @keyframes pop{0%{transform:scale(.4)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+  /* ===== TANGGA HADIAH ===== */
+  .gamewrap{display:grid; grid-template-columns:1fr 250px; gap:14px; align-items:start;}
+  @media (max-width:820px){.gamewrap{grid-template-columns:1fr;}.ladder{order:-1;display:grid;grid-template-columns:repeat(2,1fr);gap:4px;align-items:stretch;}}
+  .ladder{background:rgba(10,16,44,.65); border:1px solid rgba(251,191,36,.35); border-radius:16px; padding:10px;}
+  .rung{display:flex; align-items:center; justify-content:space-between; gap:6px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:#cbd5e1; font-weight:800; font-size:clamp(12px,1.6vw,15px); padding:5px 10px; border-radius:10px; margin-bottom:4px; transition:.25s;}
+  .rung:last-child{margin-bottom:0;}
+  .rung.cur{background:linear-gradient(90deg,#f59e0b,#fbbf24); color:#78350f; transform:scale(1.04); box-shadow:0 0 22px rgba(251,191,36,.5); border-color:#fde68a;}
+  .rung.safe{border-left:5px solid #22c55e;}
+  .rung.passed{opacity:.4;}
+  .rung .sv{font-size:10px; letter-spacing:.5px;}
+  .ladderfoot{margin-top:8px; text-align:center; color:#93a3d9; font-size:11px; font-weight:700; line-height:1.5; grid-column:1/-1;}
+  .ladderfoot .sv{color:#22c55e;}
+  .miniladder .rung{font-size:12px; padding:3px 8px; margin-bottom:3px;}
+
+  /* ===== SOAL + OPSI ===== */
+  .qcard{position:relative; background:linear-gradient(180deg,#2b3a7e,#1c2a5e); border:2px solid rgba(251,191,36,.5); border-radius:18px; padding:16px 18px; text-align:center; box-shadow:0 0 30px rgba(37,53,120,.6);}
+  .qmeta{position:absolute; top:-12px; left:16px; background:var(--gold); color:#78350f; font-weight:800; font-size:12px; padding:2px 12px; border-radius:99px;}
+  .qm{font-size:clamp(16px,3vw,25px); font-weight:800; color:#fff; line-height:1.4;}
+  .optgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0;}
+  @media (max-width:560px){.optgrid{grid-template-columns:1fr;}}
+  .opt{display:flex; align-items:center; gap:10px; font-family:inherit; text-align:left; border:1px solid rgba(251,191,36,.45); border-radius:14px; min-height:56px; padding:8px 14px; cursor:pointer; color:#fff; font-weight:700; font-size:clamp(14px,2.3vw,19px); background:linear-gradient(180deg,#2b3a7e,#1c2a5e); box-shadow:inset 0 -4px 0 rgba(0,0,0,.35); transition:.15s;}
+  .opt:hover:not(:disabled):not(.locked){background:linear-gradient(180deg,#3b4c9e,#26377a);}
+  .opt:disabled{cursor:default;}
+  .opt .letter{flex-shrink:0; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border:2px solid rgba(251,191,36,.7); border-radius:50%; font-weight:800; color:var(--gold);}
+  .opt .otext{flex:1; overflow-wrap:anywhere;}
+  .opt.locked{background:linear-gradient(180deg,#f59e0b,#d97706); color:#fff; border-color:#fde68a;}
+  .opt.locked .letter{border-color:#fff; color:#fff;}
+  .opt.right{background:linear-gradient(180deg,#16a34a,#15803d); border-color:#4ade80; animation:pop .4s;}
+  .opt.right .letter{border-color:#fff; color:#fff;}
+  .opt.wrong{background:linear-gradient(180deg,#dc2626,#b91c1c); border-color:#f87171; opacity:.95;}
+  .opt.dim{opacity:.18; text-decoration:line-through;}
+  @keyframes pop{0%{transform:scale(.5)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+  .qfoot{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .hostrow{display:flex; gap:14px; margin-top:10px; justify-content:center; flex-wrap:wrap;}
+
+  /* ===== LIFELINES ===== */
+  .lifelines{display:flex; gap:8px; justify-content:center; margin:12px 0; flex-wrap:wrap;}
+  .ll{font-family:inherit; cursor:pointer; width:74px; height:54px; border-radius:14px; border:2px solid rgba(251,191,36,.55); background:linear-gradient(180deg,#2b3a7e,#1c2a5e); color:#fff; font-weight:800; font-size:17px; transition:.15s;}
+  .ll:hover:not(:disabled){background:linear-gradient(180deg,#3b4c9e,#26377a);}
+  .ll:disabled{opacity:.25; cursor:not-allowed;}
+  .ll small{display:block; font-size:9px; font-weight:700; color:#cbd5e1; letter-spacing:.3px;}
+  .ll small.fl{color:var(--gold);}
+  .ll.ready{animation:llPulse 1.6s infinite;}
+  @keyframes llPulse{0%,100%{box-shadow:0 0 0 rgba(251,191,36,0)}50%{box-shadow:0 0 18px rgba(251,191,36,.55)}}
 
   /* ===== TIMER ===== */
-  .timerpill{background:#312e81;color:#e0e7ff;font-weight:800;padding:8px 16px;border-radius:99px;font-size:clamp(15px,2.6vw,20px);box-shadow:0 4px 0 #1e1b4b;min-width:104px;text-align:center;transition:background .3s;}
-  .timerpill.warn{background:#d97706;color:#fff;box-shadow:0 4px 0 #92400e;animation:pulse 1s infinite;}
-  .timerpill.hot{background:#dc2626;color:#fff;box-shadow:0 4px 0 #7f1d1d;animation:pulse .5s infinite;}
-  .timerpill.off{background:#475569;color:#cbd5e1;box-shadow:0 4px 0 #1e293b;}
+  .timerpill{background:#1c2a5e;border:1px solid rgba(255,255,255,.2);color:#e0e7ff;font-weight:800;padding:8px 16px;border-radius:99px;font-size:clamp(14px,2.4vw,19px);min-width:104px;text-align:center;transition:background .3s;}
+  .timerpill.warn{background:#d97706;color:#fff;animation:pulse 1s infinite;}
+  .timerpill.hot{background:#dc2626;color:#fff;animation:pulse .5s infinite;}
+  .timerpill.off{background:#334155;color:#cbd5e1;}
   #timerGlow{position:fixed;inset:0;pointer-events:none;z-index:40;opacity:0;transition:opacity .4s;box-shadow:inset 0 0 140px 50px rgba(220,38,38,.55);}
   #timerGlow.on{opacity:1;animation:glowPulse 1s infinite;}
   @keyframes glowPulse{0%,100%{opacity:.5}50%{opacity:1}}
   #timeUpFlash{position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);font-size:clamp(28px,6vw,56px);font-weight:800;color:#fff;background:linear-gradient(90deg,#dc2626,#f97316);padding:14px 34px;border-radius:20px;z-index:60;opacity:0;pointer-events:none;box-shadow:0 18px 50px rgba(0,0,0,.4);}
   #timeUpFlash.show{animation:tuf 1.3s ease forwards;}
   @keyframes tuf{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}30%{transform:translate(-50%,-50%) scale(1)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.05)}}
-  .setlabel{font-weight:700;color:#64748b;font-size:14px;margin-bottom:6px;text-align:center;}
+  .setlabel{font-weight:700;color:#475569;font-size:14px;margin-bottom:6px;text-align:center;}
   .timeropts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
   .topt{font-family:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:12px;border:2px solid #c4b5fd;background:#fff;cursor:pointer;color:#4c1d95;}
-  .topt.sel{background:#7c3aed;border-color:#7c3aed;color:#fff;}
-
-  .answers{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:12px;}
-  @media (max-width:560px){.answers{grid-template-columns:1fr;}}
-  .tile{position:relative; border:none; border-radius:14px; min-height:64px; font-family:inherit; cursor:pointer; overflow:hidden; background:#312e81; box-shadow:inset 0 -4px 0 rgba(0,0,0,.35);}
-  .tile .hiddenface{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#c7d2fe; font-size:30px; font-weight:800;}
-  .tile .showface{position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; gap:10px; background:linear-gradient(180deg,#fff,#e0e7ff); padding:8px 14px; font-weight:800; font-size:clamp(14px,2.4vw,19px); animation:flip .45s;}
-  @keyframes flip{0%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
-  .tile .pts{background:#7c3aed; color:#fff; border-radius:10px; padding:4px 10px; font-size:16px; flex-shrink:0;}
-  .tile .num{position:absolute; top:4px; left:8px; font-size:12px; color:#818cf8; font-weight:700;}
-  .stealbar{background:linear-gradient(90deg,#dc2626,#f97316); color:#fff; font-weight:800; text-align:center; padding:10px; border-radius:14px; margin-bottom:10px; animation:pulse 1s infinite;}
-  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-
-  .controls{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:auto;}
-  .controls input{flex:1; min-width:180px; font-family:inherit; font-size:17px; font-weight:700; padding:12px 16px; border-radius:14px; border:3px solid #a5b4fc; outline:none;}
-  .controls input:focus{border-color:var(--gold);}
-  .btn.strikebtn{background:linear-gradient(180deg,#fca5a5,#ef4444); color:#fff; box-shadow:0 6px 0 #b91c1c, 0 12px 24px rgba(0,0,0,.35);}
-  .hostrow{display:flex; gap:14px; margin-top:12px; justify-content:center; flex-wrap:wrap;}
-  .linkbtn{background:none; border:none; color:#c4b5fd; font-family:inherit; font-weight:700; font-size:13px; cursor:pointer; text-decoration:underline;}
-
-  /* overlay hasil ronde */
-  #overlay{position:fixed; inset:0; background:rgba(20,10,50,.75); display:none; align-items:center; justify-content:center; z-index:50; padding:16px;}
-  #overlay.show{display:flex;}
-  .result{background:var(--panel); border-radius:22px; padding:30px 34px; text-align:center; max-width:440px; width:100%; animation:pop .35s;}
-  .result .big{font-size:clamp(22px,5vw,32px); font-weight:800; margin-bottom:6px;}
-  .result .pts{font-size:clamp(34px,7vw,52px); font-weight:800; color:#7c3aed;}
-  .result .sub{color:#64748b; font-weight:700; margin-bottom:18px;}
-
-  /* game over */
-  #screen-over{align-items:center; justify-content:center; text-align:center; gap:14px;}
-  .trophy{font-size:clamp(60px,12vw,110px); animation:pulse 1.2s infinite;}
-  .finalscores{display:flex; gap:14px; flex-wrap:wrap; justify-content:center;}
-  .fbox{background:var(--panel); border-radius:16px; padding:12px 26px; min-width:170px;}
-  .fbox .fn{font-weight:800;}
-  .fbox .fs{font-size:38px; font-weight:800; color:#7c3aed;}
-  .fbox.win{outline:4px solid var(--gold); box-shadow:0 0 26px rgba(251,191,36,.5);}
-
-  /* ===== PAPAN REKOR ===== */
-  #lbOverlay{position:fixed;inset:0;background:rgba(20,10,50,.78);display:none;align-items:center;justify-content:center;z-index:70;padding:16px;}
-  #lbOverlay.show{display:flex;}
-  .lbpanel{background:var(--panel);border-radius:22px;padding:24px;max-width:520px;width:100%;max-height:85vh;overflow:auto;animation:pop .3s;box-shadow:0 18px 60px rgba(0,0,0,.5);}
-  .lbpanel h3{font-size:26px;font-weight:800;text-align:center;}
-  .lbpsub{text-align:center;color:#64748b;font-weight:700;font-size:13px;margin-bottom:14px;}
-  .lbrow{display:flex;align-items:center;gap:12px;background:#f1f5f9;border-radius:14px;padding:10px 14px;margin-bottom:8px;}
-  .lbrow.new{outline:3px solid var(--gold);background:#fef9c3;animation:pop .4s;}
-  .lbrow .rank{font-size:22px;min-width:40px;text-align:center;font-weight:800;color:#64748b;}
-  .lbrow .lmain{flex:1;min-width:0;}
-  .lbrow .lteam{font-weight:800;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .lbrow .lsub{font-size:12px;color:#64748b;font-weight:700;}
-  .lbrow .lscore{font-size:26px;font-weight:800;color:#7c3aed;}
-  .lbchip{display:inline-block;background:#e0e7ff;color:#4338ca;border-radius:99px;font-size:11px;font-weight:800;padding:2px 8px;margin-right:4px;}
-  .lbempty{text-align:center;color:#64748b;font-weight:700;padding:26px 0;line-height:1.6;}
-  .lbtns{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
-  .recordbanner{background:linear-gradient(90deg,#f59e0b,#fbbf24);color:#78350f;font-weight:800;border-radius:14px;padding:10px 16px;text-align:center;margin:12px auto 0;max-width:420px;animation:pop .4s;}
-
-  /* ===== FULLSCREEN / PROYEKTOR ===== */
-  .tbtns{display:flex;flex-direction:column;gap:6px;justify-content:center;}
-  .tbtns .mute{height:42px;}
-  #fsToast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(15,10,40,.92);color:#fff;padding:12px 22px;border-radius:14px;font-weight:700;font-size:14px;z-index:120;opacity:0;pointer-events:none;transition:opacity .35s;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:90vw;text-align:center;}
-  #fsToast.show{opacity:1;}
-  body.fs #app{max-width:1560px;padding:22px 28px 48px;}
-  body.fs .topbar{gap:14px;margin-bottom:20px;}
-  body.fs .teambox{padding:12px 16px;border-radius:20px;}
-  body.fs .tname{font-size:clamp(16px,2.3vw,32px);}
-  body.fs .tscore{font-size:clamp(32px,4.4vw,66px);}
-  body.fs .chip{font-size:14px;padding:3px 14px;top:-15px;}
-  body.fs .roundinfo{min-width:190px;gap:6px;}
-  body.fs .rno{font-size:clamp(14px,1.5vw,22px);}
-  body.fs .badge{font-size:clamp(13px,1.6vw,21px);padding:7px 16px;}
-  body.fs .mute{width:54px;height:48px;font-size:24px;border-radius:14px;}
-  body.fs .qcard{padding:20px 28px;margin-bottom:16px;}
-  body.fs .qm{font-size:clamp(20px,3vw,46px);}
-  body.fs .bank{font-size:clamp(17px,2.3vw,30px);padding:10px 24px;}
-  body.fs .strike{width:54px;height:54px;font-size:32px;border-radius:14px;}
-  body.fs .answers{gap:14px;margin-bottom:16px;}
-  body.fs .tile{min-height:96px;border-radius:16px;}
-  body.fs .tile .hiddenface{font-size:44px;}
-  body.fs .tile .showface{font-size:clamp(16px,2.1vw,30px);padding:10px 20px;}
-  body.fs .tile .pts{font-size:clamp(15px,1.8vw,24px);padding:6px 14px;}
-  body.fs .controls input{font-size:clamp(16px,2vw,26px);padding:14px 20px;border-radius:16px;}
-  body.fs .btn{font-size:clamp(16px,2vw,28px);padding:16px 40px;}
-  body.fs .btn.small{font-size:clamp(13px,1.5vw,20px);padding:10px 22px;}
-  body.fs .stealbar{font-size:clamp(16px,2.1vw,28px);padding:12px;}
-  body.fs .timerpill{font-size:clamp(17px,2.3vw,30px);min-width:150px;padding:10px 20px;}
-  body.fs .pick{padding:18px 22px;border-radius:20px;}
-  body.fs .pick .ic{font-size:44px;width:76px;height:76px;border-radius:18px;}
-  body.fs .pick .pn{font-size:clamp(17px,2vw,28px);}
-  body.fs .pick .pc, body.fs .pick .diffline{font-size:clamp(13px,1.5vw,19px);}
-  body.fs #screen-picker h2, body.fs #screen-over h2{font-size:clamp(24px,3.4vw,44px);}
-  body.fs .logo{font-size:clamp(48px,8.5vw,140px);}
-  body.fs .subtitle{font-size:clamp(17px,2.4vw,30px);}
-  body.fs .howto{font-size:clamp(14px,1.6vw,22px);max-width:960px;}
-  body.fs .setlabel{font-size:clamp(14px,1.5vw,20px);}
-  body.fs .topt{font-size:clamp(14px,1.6vw,21px);padding:10px 20px;}
-  body.fs .teamform input{font-size:clamp(16px,2vw,26px);padding:14px 18px;}
-  body.fs .result .big{font-size:clamp(26px,3.6vw,46px);}
-  body.fs .result .pts{font-size:clamp(38px,5.5vw,70px);}
-  body.fs .trophy{font-size:clamp(70px,11vw,170px);}
-  body.fs .fbox{min-width:220px;padding:16px 34px;}
-  body.fs .fbox .fn{font-size:clamp(16px,2vw,26px);}
-  body.fs .fbox .fs{font-size:clamp(42px,5.5vw,70px);}
-  body.fs .lbpanel{max-width:760px;}
-  body.fs .lbpanel h3{font-size:clamp(22px,3vw,40px);}
-  body.fs .lbrow .lteam{font-size:clamp(16px,2vw,26px);}
-  body.fs .lbrow .lsub{font-size:clamp(12px,1.4vw,17px);}
-  body.fs .lbrow .lscore{font-size:clamp(24px,3vw,40px);}
-  body.fs .recordbanner{font-size:clamp(15px,2vw,24px);max-width:560px;}
+  .topt.sel{background:#1d4ed8;border-color:#1d4ed8;color:#fff;}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 
   /* ===== FILTER KESULITAN ===== */
   .dopt{font-family:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:12px;border:2px solid #c4b5fd;background:#fff;cursor:pointer;color:#4c1d95;transition:.12s;}
@@ -207,15 +142,108 @@
   .dopt.d3.sel{background:#ef4444;border-color:#dc2626;color:#fff;}
   body.fs .dopt{font-size:clamp(14px,1.6vw,21px);padding:10px 20px;}
 
+  /* ===== OVERLAY ===== */
+  #overlay{position:fixed; inset:0; background:rgba(6,10,30,.82); display:none; align-items:center; justify-content:center; z-index:50; padding:16px;}
+  #overlay.show{display:flex;}
+  .result{background:var(--panel); border-radius:22px; padding:28px 32px; text-align:center; max-width:460px; width:100%; animation:pop .35s; color:var(--ink);}
+  .result .big{font-size:clamp(20px,4.6vw,30px); font-weight:800; margin-bottom:4px;}
+  .result .pts{font-size:clamp(32px,6.6vw,50px); font-weight:800; color:#b45309; line-height:1.2;}
+  .result .sub{color:#64748b; font-weight:700; margin-bottom:16px; font-size:14px;}
+  .miniladder{max-width:320px; margin:0 auto 16px;}
+
+  /* game over */
+  #screen-over{align-items:center; justify-content:center; text-align:center; gap:14px;}
+  .trophy{font-size:clamp(56px,11vw,100px); animation:pulse 1.2s infinite;}
+  .finalscores{display:flex; gap:14px; flex-wrap:wrap; justify-content:center;}
+  .fbox{background:var(--panel); border-radius:16px; padding:12px 26px; min-width:190px; color:var(--ink);}
+  .fbox .fn{font-weight:800;}
+  .fbox .fs2{font-size:38px; font-weight:800; color:#b45309;}
+  .fbox.win{outline:4px solid var(--gold); box-shadow:0 0 26px rgba(251,191,36,.5);}
+
+  /* ===== PAPAN REKOR ===== */
+  #lbOverlay{position:fixed;inset:0;background:rgba(6,10,30,.85);display:none;align-items:center;justify-content:center;z-index:70;padding:16px;}
+  #lbOverlay.show{display:flex;}
+  .lbpanel{background:var(--panel);border-radius:22px;padding:24px;max-width:520px;width:100%;max-height:85vh;overflow:auto;animation:pop .3s;box-shadow:0 18px 60px rgba(0,0,0,.5);color:var(--ink);}
+  .lbpanel h3{font-size:26px;font-weight:800;text-align:center;}
+  .lbpsub{text-align:center;color:#64748b;font-weight:700;font-size:13px;margin-bottom:14px;}
+  .lbrow{display:flex;align-items:center;gap:12px;background:#f1f5f9;border-radius:14px;padding:10px 14px;margin-bottom:8px;}
+  .lbrow.new{outline:3px solid var(--gold);background:#fef9c3;animation:pop .4s;}
+  .lbrow .rank{font-size:22px;min-width:40px;text-align:center;font-weight:800;color:#64748b;}
+  .lbrow .lmain{flex:1;min-width:0;}
+  .lbrow .lteam{font-weight:800;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .lbrow .lsub{font-size:12px;color:#64748b;font-weight:700;}
+  .lbrow .lscore{font-size:26px;font-weight:800;color:#b45309;}
+  .lbchip{display:inline-block;background:#e0e7ff;color:#4338ca;border-radius:99px;font-size:11px;font-weight:800;padding:2px 8px;margin-right:4px;}
+  .lbempty{text-align:center;color:#64748b;font-weight:700;padding:26px 0;line-height:1.6;}
+  .lbtns{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+  .recordbanner{background:linear-gradient(90deg,#f59e0b,#fbbf24);color:#78350f;font-weight:800;border-radius:14px;padding:10px 16px;text-align:center;margin:12px auto 0;max-width:420px;animation:pop .4s;}
+
+  /* ===== FULLSCREEN ===== */
+  #fsToast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(15,10,40,.92);color:#fff;padding:12px 22px;border-radius:14px;font-weight:700;font-size:14px;z-index:120;opacity:0;pointer-events:none;transition:opacity .35s;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:90vw;text-align:center;}
+  #fsToast.show{opacity:1;}
+  body.fs #app{max-width:1560px;padding:22px 28px 48px;}
+  body.fs .topbar{gap:14px;margin-bottom:18px;}
+  body.fs .box{padding:12px 16px;border-radius:20px;}
+  body.fs .tname{font-size:clamp(15px,2.2vw,30px);}
+  body.fs .tscore{font-size:clamp(30px,4.2vw,62px);}
+  body.fs .roundinfo{min-width:200px;gap:6px;}
+  body.fs .rno{font-size:clamp(14px,1.5vw,22px);}
+  body.fs .badge{font-size:clamp(13px,1.6vw,21px);padding:7px 16px;}
+  body.fs .mute{width:54px;height:48px;font-size:24px;border-radius:14px;}
+  body.fs .gamewrap{gap:18px;}
+  body.fs .ladder{padding:14px;}
+  body.fs .rung{font-size:clamp(13px,1.5vw,21px);padding:7px 14px;}
+  body.fs .rung .sv{font-size:clamp(9px,1vw,13px);}
+  body.fs .ladderfoot{font-size:clamp(10px,1.1vw,15px);}
+  body.fs .qcard{padding:18px 28px;}
+  body.fs .qm{font-size:clamp(19px,2.9vw,44px);}
+  body.fs .qmeta{font-size:clamp(12px,1.4vw,17px);padding:4px 16px;top:-16px;}
+  body.fs .opt{min-height:96px;border-radius:16px;font-size:clamp(15px,2vw,30px);padding:10px 20px;}
+  body.fs .opt .letter{width:46px;height:46px;font-size:clamp(18px,2vw,28px);}
+  body.fs .optgrid{gap:14px;}
+  body.fs .lifelines{margin:16px 0;}
+  body.fs .ll{width:96px;height:76px;font-size:clamp(18px,2vw,28px);border-radius:16px;}
+  body.fs .ll small{font-size:clamp(9px,1.1vw,14px);}
+  body.fs .timerpill{font-size:clamp(16px,2.2vw,30px);min-width:150px;padding:10px 20px;}
+  body.fs .qfoot .btn{font-size:clamp(15px,1.9vw,26px);padding:12px 28px;}
+  body.fs .hostrow{gap:18px;}
+  body.fs .linkbtn{font-size:clamp(12px,1.4vw,18px);}
+  body.fs .pick{padding:18px 22px;border-radius:20px;}
+  body.fs .pick .ic{font-size:44px;width:76px;height:76px;border-radius:18px;}
+  body.fs .pick .pn{font-size:clamp(17px,2vw,28px);}
+  body.fs .pick .pc, body.fs .pick .diffline{font-size:clamp(13px,1.5vw,19px);}
+  body.fs #screen-picker h2, body.fs #screen-over h2{font-size:clamp(24px,3.4vw,44px);}
+  body.fs .logo{font-size:clamp(38px,6.6vw,112px);}
+  body.fs .subtitle{font-size:clamp(16px,2.2vw,28px);}
+  body.fs .howto{font-size:clamp(14px,1.6vw,22px);max-width:980px;}
+  body.fs .setlabel{font-size:clamp(14px,1.5vw,20px);}
+  body.fs .topt{font-size:clamp(14px,1.6vw,21px);padding:10px 20px;}
+  body.fs .teamform input{font-size:clamp(16px,2vw,26px);padding:14px 18px;}
+  body.fs .result .big{font-size:clamp(24px,3.4vw,44px);}
+  body.fs .result .pts{font-size:clamp(36px,5.4vw,66px);}
+  body.fs .result .sub{font-size:clamp(13px,1.6vw,20px);}
+  body.fs .miniladder{max-width:440px;}
+  body.fs .miniladder .rung{font-size:clamp(12px,1.4vw,18px);padding:5px 10px;}
+  body.fs .trophy{font-size:clamp(64px,10vw,150px);}
+  body.fs .fbox{min-width:230px;padding:16px 34px;}
+  body.fs .fbox .fn{font-size:clamp(16px,2vw,26px);}
+  body.fs .fbox .fs2{font-size:clamp(40px,5.4vw,66px);}
+  body.fs .lbpanel{max-width:760px;}
+  body.fs .lbpanel h3{font-size:clamp(22px,3vw,40px);}
+  body.fs .lbrow .lteam{font-size:clamp(16px,2vw,26px);}
+  body.fs .lbrow .lsub{font-size:clamp(12px,1.4vw,17px);}
+  body.fs .lbrow .lscore{font-size:clamp(24px,3vw,40px);}
+  body.fs .recordbanner{font-size:clamp(15px,2vw,24px);max-width:560px;}
+
   /* ===== PENGATURAN GURU (PIN) ===== */
-  #pinOverlay{position:fixed;inset:0;background:rgba(20,10,50,.85);display:none;align-items:center;justify-content:center;z-index:110;padding:16px;}
+  #pinOverlay{position:fixed;inset:0;background:rgba(6,10,30,.88);display:none;align-items:center;justify-content:center;z-index:110;padding:16px;}
   #pinOverlay.show{display:flex;}
-  .pinpanel{background:var(--panel);border-radius:22px;padding:26px 30px;width:100%;max-width:340px;text-align:center;animation:pop .3s;box-shadow:0 18px 60px rgba(0,0,0,.5);}
+  .pinpanel{background:var(--panel);border-radius:22px;padding:26px 30px;width:100%;max-width:340px;text-align:center;animation:pop .3s;box-shadow:0 18px 60px rgba(0,0,0,.5);color:var(--ink);}
   .pinpanel h3{font-size:22px;font-weight:800;margin-bottom:4px;}
   .pinpsub{color:#64748b;font-weight:700;font-size:13px;margin-bottom:14px;}
   .pindots{display:flex;gap:10px;justify-content:center;margin-bottom:10px;}
   .pindot{width:14px;height:14px;border-radius:50%;background:#e2e8f0;border:2px solid #cbd5e1;transition:.15s;}
-  .pindot.fill{background:#7c3aed;border-color:#7c3aed;transform:scale(1.15);}
+  .pindot.fill{background:#1d4ed8;border-color:#1d4ed8;transform:scale(1.15);}
   .pinpanel.shake{animation:shake .4s;}
   @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
   .pinmsg{min-height:20px;font-weight:800;font-size:13px;color:var(--bad);margin-bottom:8px;}
@@ -238,15 +266,15 @@
 
   <!-- INTRO -->
   <section class="screen show" id="screen-intro">
-    <div class="logo">FAMILI <span class="hundred">100</span></div>
-    <div class="subtitle">🎒 Edisi Kelas 3 SD • Semester 1 • 197 Soal</div>
+    <div class="logo">SIAPA <span class="gold">MAU JADI</span> MILIARIS?</div>
+    <div class="subtitle">🎒 Edisi Kelas 3 SD • Semester 1 • 197 Soal • 7 Mapel</div>
     <div class="card" style="max-width:640px;width:100%;">
       <div class="teamform">
         <input id="nameA" maxlength="20" placeholder="Nama Tim 1" value="Tim 1">
         <input id="nameB" maxlength="20" placeholder="Nama Tim 2" value="Tim 2">
       </div>
       <div style="margin-top:14px;">
-        <div class="setlabel">⏱ Batas waktu tiap giliran menjawab</div>
+        <div class="setlabel">⏱ Batas waktu tiap soal (mengatur tempo kelas)</div>
         <div class="timeropts">
           <button class="topt" data-t="30">30 detik</button>
           <button class="topt sel" data-t="60">60 detik</button>
@@ -255,7 +283,7 @@
         </div>
       </div>
       <div style="margin-top:14px;">
-        <div class="setlabel">🎯 Batasi ronde pada tingkat kesulitan soal</div>
+        <div class="setlabel">🎯 Batasi tangga pada tingkat kesulitan soal</div>
         <div class="timeropts">
           <button class="dopt sel" data-d="0">Semua level</button>
           <button class="dopt d1" data-d="1">🟢 Mudah</button>
@@ -270,10 +298,12 @@
       </div>
     </div>
     <p class="howto">
-      <b>Cara bermain:</b> ① Pilih mata pelajaran → jawab soal seperti kuis Family 100.
-      ② Ketik jawaban & tekan <b>Enter</b> (atau klik kartu jawaban). Salah 3× = <b>strike</b>,
-      tim lawan dapat <b>kesempatan mencuri poin</b>! ⏱ Habis waktu = <b>strike</b> juga — pilih durasinya di bawah! ③ Selesaikan 7 mapel, skor terbesar menang & masuk <b>Papan Rekor</b> kelas! 🏆<br><br>
-      <b>Tingkat kesulitan soal:</b> 🟢 Mudah • 🟡 Sedang • 🔴 Sulit — tertulis di atas papan tiap ronde; batasi ke satu level lewat menu awal!
+      <b>Cara bermain:</b> ① Pilih mata pelajaran → tim menjawab <b>15 soal berjenjang</b> (mudah → sulit) seperti kuis Milionaire.
+      ② Klik salah satu opsi <b>A–D</b> → tombol <b>Kunci Jawaban</b> menyala → klik lagi (atau tekan <b>Enter</b>) untuk mengunci.
+      ③ Ada 3 <b>bantuan</b>: 50:50, Tanya Audiens, dan Telepon Teman — masing-masing 1× per tangga.
+      ④ Salah jawaban = turun ke <b>hadiah aman</b> terakhir (zona hijau 🛡) — jadi tidak selalu nol!
+      ⑤ Bisa juga <b>Berhenti</b> 🏳️ dan membawa poin yang sudah diraih. Skor gabungan kedua tim masuk <b>Papan Rekor</b> kelas! 🏆<br><br>
+      <b>Tingkat kesulitan soal:</b> 🟢 Mudah (soal 1–5) • 🟡 Sedang (soal 6–10) • 🔴 Sulit (soal 11–15) — atau batasi ke satu level lewat menu awal!
     </p>
   </section>
 
@@ -287,23 +317,24 @@
   <!-- BOARD -->
   <section class="screen" id="screen-board">
     <div id="topbarBoard"></div>
-    <div class="qcard"><div class="qm" id="qText"></div></div>
-    <div class="bankrow">
-      <div class="bank">💰 Poin Ronde: <span id="bankVal">0</span></div>
-      <div class="timerpill" id="timerPill">⏱ <span id="timerSec">—</span></div>
-      <div class="strikes" id="strikeRow"></div>
-    </div>
-    <div id="stealSlot"></div>
-    <div class="answers" id="answerGrid"></div>
-    <div class="controls">
-      <input id="ansInput" placeholder="Ketik jawaban tim lalu tekan Enter…" autocomplete="off">
-      <button class="btn small blue" onclick="submitAnswer()">Jawab ✔</button>
-      <button class="btn small strikebtn" onclick="doStrike()">Salah ✖</button>
-    </div>
-    <div class="hostrow">
-      <button class="linkbtn" onclick="revealAllHost()">Buka semua jawaban</button>
-      <button class="linkbtn" onclick="showPin('swap')">🔄 Ganti soal 🔒</button>
-      <button class="linkbtn" onclick="quitToPicker()">⬅ Pilih mapel lain</button>
+    <div class="gamewrap">
+      <div class="ladder" id="ladderBox"></div>
+      <div style="min-width:0;">
+        <div class="qcard"><div class="qmeta" id="qMeta"></div><div class="qm" id="qText"></div></div>
+        <div class="lifelines" id="llRow"></div>
+        <div class="optgrid" id="optGrid"></div>
+        <div class="qfoot">
+          <div class="timerpill" id="timerPill">⏱ <span id="timerSec">—</span></div>
+          <div style="flex:1;"></div>
+          <button class="btn small blue" id="lockBtn" onclick="lockIn()" disabled>Pilih opsi dulu…</button>
+          <button class="btn small ghost" onclick="walkAwayUI()">Berhenti 🏳️</button>
+        </div>
+        <div class="hostrow">
+          <button class="linkbtn" onclick="showPin('swap')">🔄 Ganti soal 🔒</button>
+          <button class="linkbtn" onclick="quitToPicker()">⬅ Pilih mapel lain</button>
+          <button class="linkbtn" onclick="showPin('reveal')">👀 Buka jawaban 🔒</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -321,7 +352,7 @@
   </section>
 </div>
 
-<!-- OVERLAY HASIL RONDE -->
+<!-- OVERLAY HASIL TANGGA -->
 <div id="overlay"><div class="result" id="resultBox"></div></div>
 
 <!-- PAPAN REKOR -->
@@ -344,9 +375,11 @@
 
 <script>
 /* ============================================================
-   DATA SOAL — 7 MAPEL, TOTAL 195 SOAL (Kelas 3 SD, Semester 1)
-   d = tingkat kesulitan: 1 mudah, 2 sedang, 3 sulit
-   a = alternasi jawaban yang juga diterima
+   DATA SOAL — 7 MAPEL, 197 SOAL (Kelas 3 SD, Semester 1) — SAMA
+   PERSIS dengan versi sebelumnya. d = kesulitan (1/2/3),
+   p = bobot jawaban, a = alternatif jawaban lain yang sah.
+   Pada format pilihan ganda: answers[0].t = KUNCI jawaban,
+   answers lainnya & a[] dipakai guru sebagai referensi.
 ============================================================ */
 const DIFF = {
   1:{label:'Mudah', dot:'🟢', color:'#22c55e'},
@@ -644,44 +677,43 @@ const SUBJECTS = [
   ]},
 ];
 
+/* ================= TANGGA HADIAH =================
+   15 anak tangga; safe = zona aman (hadiah dibawa pulang
+   walau salah di atasnya). Poin = skor tim. */
+const LADDER = [
+  {p:100, safe:false},
+  {p:200, safe:false},
+  {p:300, safe:false},
+  {p:500, safe:false},
+  {p:1000, safe:true},   // aman 1
+  {p:2000, safe:false},
+  {p:3000, safe:false},
+  {p:5000, safe:false},
+  {p:8000, safe:false},
+  {p:15000, safe:true},  // aman 2
+  {p:25000, safe:false},
+  {p:50000, safe:false},
+  {p:75000, safe:false},
+  {p:100000, safe:true}, // aman 3
+  {p:250000, safe:false}
+];
+
 /* ================= STATE ================= */
-const TOTAL_ROUNDS = 7;
+const STEPS = LADDER.length;
 let S = {
-  teams:[{name:"Tim 1",score:0},{name:"Tim 2",score:0}],
-  order:[], used:{}, roundNo:1,
+  teams:[{name:'Tim 1',score:0},{name:'Tim 2',score:0}],
+  order:[], used:{}, turnNo:0,
   round:null, muted:false,
-  timerSetting:60, diffSetting:0, timer:{left:0,total:1,int:null}
+  timerSetting:60, diffSetting:0, timer:{left:0,total:1,int:null},
+  activeTeam:0
 };
 
 /* ================= HELPERS ================= */
 const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc = s => String(s).replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
 const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; };
-
-function norm(s){
-  return String(s).toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
-}
-function phraseIn(inputTokens, cand){
-  const c = norm(cand); if(!c) return false;
-  const ct = c.split(' '), n = ct.length;
-  if(inputTokens.length < n) return false;
-  for(let i=0;i+n<=inputTokens.length;i++){
-    let ok = true;
-    for(let j=0;j<n;j++) if(inputTokens[i+j] !== ct[j]){ ok=false; break; }
-    if(ok) return true;
-  }
-  return false;
-}
-function findMatches(raw){
-  const tokens = norm(raw).split(' ').filter(Boolean);
-  const hits = [];
-  S.round.answers.forEach((ans,i)=>{
-    if(ans.revealed) return;
-    const cands = [ans.t, ...(ans.a||[])];
-    if(cands.some(c => phraseIn(tokens, c))) hits.push(i);
-  });
-  return hits;
-}
+const fmtPoin = n => n.toLocaleString('id-ID');
+const norm = s => String(s).toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
 
 /* ================= SOUND (WebAudio) ================= */
 let AC = null;
@@ -699,12 +731,14 @@ function tone(freq, dur, type='sine', delay=0, vol=0.18){
     o.start(t0); o.stop(t0+dur+0.05);
   }catch(e){}
 }
-const sReveal = () => { tone(660,.12,'triangle'); tone(880,.15,'triangle',.09); };
-const sCorrect = () => { tone(523,.12,'triangle'); tone(659,.12,'triangle',.1); tone(784,.2,'triangle',.2); };
-const sStrike = () => { tone(130,.4,'sawtooth',0,.22); tone(98,.45,'square',.05,.18); };
-const sWin = () => { [523,659,784,1047].forEach((f,i)=>tone(f,.22,'triangle',i*.13,.2)); };
+const sSelect = () => tone(880,.09,'triangle',0,.14);
+const sLock = () => { tone(392,.12,'square',0,.16); tone(523,.18,'square',.1,.16); };
+const sCorrect = () => { [523,659,784,1047].forEach((f,i)=>tone(f,.16,'triangle',i*.11,.2)); };
+const sWrong = () => { tone(220,.3,'sawtooth',0,.2); tone(165,.45,'sawtooth',.12,.2); };
+const sTick = () => tone(1180,.05,'square',0,.1);
+const sWin = () => { [523,659,784,1047,1319].forEach((f,i)=>tone(f,.22,'triangle',i*.13,.2)); };
 
-/* ================= TIMER GILIRAN ================= */
+/* ================= TIMER SOAL ================= */
 document.querySelectorAll('.topt').forEach(b=>{
   b.addEventListener('click', ()=>{
     S.timerSetting = +b.dataset.t;
@@ -717,29 +751,33 @@ document.querySelectorAll('.dopt').forEach(b=>{
     document.querySelectorAll('.dopt').forEach(x=>x.classList.toggle('sel', x===b));
   });
 });
-function startTurnTimer(){
-  stopTurnTimer();
+function timerPaused(){
+  return $('pinOverlay').classList.contains('show') || $('overlay').classList.contains('show');
+}
+function startQTimer(){
+  stopQTimer();
   const total = S.timerSetting;
-  if(!total || !S.round || S.round.phase==='done'){ renderTimer(); return; }
+  if(!total || !S.round || S.round.phase!=='play'){ renderTimer(); return; }
   S.timer = {left:total, total, int:setInterval(tickTimer, 1000)};
   renderTimer();
 }
-function stopTurnTimer(){
+function stopQTimer(){
   if(S.timer && S.timer.int){ clearInterval(S.timer.int); S.timer.int = null; }
   const g = $('timerGlow'); if(g) g.classList.remove('on');
 }
 function tickTimer(){
   const t = S.timer; if(!t || !t.int) return;
-  if(S.round && $('pinOverlay').classList.contains('show')) return; // jeda saat PIN terbuka di tengah ronde
+  if(timerPaused()) return; // jeda saat PIN/overlay terbuka
   t.left--;
-  if(t.left>0 && t.left<=10){ tone(t.left%2 ? 1180 : 880, .06, 'square', 0, .12); } // tik-tok
+  if(t.left>0 && t.left<=10) sTick();
   renderTimer();
-  if(t.left<=0){ stopTurnTimer(); timeUp(); }
+  if(t.left<=0){ stopQTimer(); timeUp(); }
 }
 function renderTimer(){
   const pill = $('timerPill'); if(!pill) return;
   const sec = $('timerSec'), glow = $('timerGlow');
-  const inactive = !S.timerSetting || !S.round || S.round.phase==='done';
+  const r = S.round;
+  const inactive = !S.timerSetting || !r || r.phase!=='play';
   if(inactive){
     pill.className='timerpill off'; sec.textContent='—';
     glow.classList.remove('on'); return;
@@ -753,9 +791,10 @@ function timeUp(){
   tone(392,.25,'sawtooth',0,.22); tone(311,.25,'sawtooth',.22,.22); tone(233,.45,'sawtooth',.44,.22);
   const f = $('timeUpFlash');
   f.classList.remove('show'); void f.offsetWidth; f.classList.add('show');
-  const r = S.round; if(!r || r.phase==='done') return;
-  if(r.phase==='play') doStrike(true);
-  else endRound(r.control); // peluang curi hangus
+  const r = S.round;
+  if(!r || r.phase!=='play') return;
+  r.locked = -1;
+  resolveAnswer(false, true);
 }
 
 /* ================= CONFETTI ================= */
@@ -784,8 +823,8 @@ function fxLoop(){
 }
 
 /* ================= PAPAN REKOR (localStorage) ================= */
-const LS_KEY = 'famili100_highscores';
-let lbNewDate = null, lbConfirmClear = false;
+const LS_KEY = 'whowant_highscores';
+let lbNewDate = null;
 function loadRecords(){
   try{ const l = JSON.parse(localStorage.getItem(LS_KEY)); return Array.isArray(l) ? l : []; }
   catch(e){ return []; }
@@ -797,7 +836,6 @@ function fmtDate(ts){
 }
 function timerLabel(t){ return t ? ('⏱ '+t+' dtk') : '⏱ Nonaktif'; }
 function diffLabel(d){ return d ? (DIFF[d].dot+' '+DIFF[d].label) : 'Semua level'; }
-
 function recordMatch(){
   const [a,b] = S.teams;
   const mk = (team, opp, oppScore) => ({
@@ -833,22 +871,16 @@ function renderLeaderboard(){
         <div class="lmain">
           <div class="lteam">${esc(e.team)}</div>
           <div class="lsub">vs ${esc(e.opponent)} (${e.oppScore}) • ${fmtDate(e.date)}</div>
-          <div class="lsub" style="margin-top:2px;"><span class="lbchip">${timerLabel(e.timer)}</span><span class="lbchip">${diffLabel(e.diff)}</span><span class="lbchip">7 ronde</span></div>
+          <div class="lsub" style="margin-top:2px;"><span class="lbchip">${timerLabel(e.timer)}</span><span class="lbchip">${diffLabel(e.diff)}</span></div>
         </div>
         <div class="lscore">${e.score}</div>
       </div>`).join('');
   }
   $('lbList').innerHTML = html;
-  lbConfirmClear = false;
-  $('lbClearBtn').textContent = '🗑 Hapus Rekor';
-}
-function clearRecords(confirmed=false){
-  if(!confirmed && !lbConfirmClear){ lbConfirmClear = true; $('lbClearBtn').textContent = '⚠️ Yakin? Klik lagi!'; return; }
-  saveRecords([]); lbNewDate = null; renderLeaderboard();
 }
 
 /* ================= PENGATURAN GURU (PIN) ================= */
-const PIN_KEY = 'famili100_guru_pin';
+const PIN_KEY = 'whowant_guru_pin';
 const PIN_DEFAULT = '1234';
 let pinAction = null, pinEntry = '', pinFirstEntry = '', pinSetting = false, pinUnlocked = false, pinMsgTxt = '';
 function getPin(){
@@ -870,6 +902,7 @@ function closePin(){
 function pinActionLabel(){
   if(pinAction==='clear') return '🗑 Hapus Semua Rekor';
   if(pinAction==='swap') return '🔄 Ganti Soal Sekarang';
+  if(pinAction==='reveal') return '👀 Buka Jawaban yang Benar';
   return '▶ Lanjutkan';
 }
 function renderPinUI(){
@@ -914,32 +947,35 @@ function pinSubmit(){
       setPin(pinEntry); pinMsgTxt=''; pinEntry=''; pinFirstEntry=''; pinSetting=false; pinUnlocked=true;
       sCorrect(); renderPinUI(); return;
     }
-    pinMsgTxt = '❌ Tidak sama — coba lagi'; pinEntry=''; pinFirstEntry=''; renderPinUI(); shakePanel(); sStrike(); return;
+    pinMsgTxt = '❌ Tidak sama — coba lagi'; pinEntry=''; pinFirstEntry=''; renderPinUI(); shakePanel(); sWrong(); return;
   }
   if(pinEntry === getPin()){ pinUnlocked=true; pinMsgTxt=''; pinEntry=''; sCorrect(); renderPinUI(); return; }
-  pinMsgTxt = '❌ PIN salah — coba lagi'; pinEntry=''; renderPinUI(); shakePanel(); sStrike();
+  pinMsgTxt = '❌ PIN salah — coba lagi'; pinEntry=''; renderPinUI(); shakePanel(); sWrong();
 }
 function shakePanel(){ const p=$('pinPanel'); if(!p) return; p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake'); }
 function startPinChange(){ pinSetting=true; pinUnlocked=false; pinEntry=''; pinFirstEntry=''; pinMsgTxt=''; renderPinUI(); }
 function runPinAction(){
   const a = pinAction;
   closePin();
-  if(a==='clear') clearRecords(true);
+  if(a==='clear') clearRecords();
   else if(a==='swap') swapQuestion();
+  else if(a==='reveal') hostReveal();
+}
+function clearRecords(){
+  saveRecords([]); lbNewDate = null; renderLeaderboard();
 }
 
 /* ================= TOP BAR ================= */
 function topbarHTML(centerHTML){
-  const turn = S.round && S.round.phase!=='done' ? currentAnswerer() : null;
   return `<div class="topbar">
     ${S.teams.map((t,i)=>`
-      <div class="teambox ${turn===i?'turn':''}">
-        ${turn===i?'<div class="chip">▶ MENJAWAB</div>':''}
+      <div class="box ${S.activeTeam===i?'turn':''}">
+        ${S.activeTeam===i?'<span class="chip">▶ GILIRAN</span>':''}
         <div class="tname">${esc(t.name)}</div>
         <div class="tscore">${t.score}</div>
       </div>`).join('')}
     <div class="roundinfo">
-      <div class="rno">Ronde ${S.roundNo} / ${TOTAL_ROUNDS}</div>
+      <div class="rno">Giliran ${Math.min(S.turnNo+1, S.teams.length)} / ${S.teams.length}</div>
       ${centerHTML}
     </div>
     <div class="tbtns">
@@ -1003,7 +1039,7 @@ function startGame(){
   S.teams[0].name = ($('nameA').value.trim() || 'Tim 1');
   S.teams[1].name = ($('nameB').value.trim() || 'Tim 2');
   S.teams[0].score = 0; S.teams[1].score = 0;
-  S.roundNo = 1;
+  S.turnNo = 0;
   S.order = shuffle(SUBJECTS);
   S.used = {}; SUBJECTS.forEach(s => S.used[s.name] = new Set());
   S.diffSetting = +((document.querySelector('.dopt.sel')||{dataset:{d:'0'}}).dataset.d||0);
@@ -1021,9 +1057,14 @@ function poolFor(sub){
   return sub.questions.map((_,i)=>i)
     .filter(i => !S.used[sub.name].has(i) && inDiffFilter(sub.questions[i].d));
 }
+function poolByDiff(sub, d){
+  return sub.questions.map((_,i)=>i)
+    .filter(i => !S.used[sub.name].has(i) && (sub.questions[i].d||2) === d);
+}
 
 function renderPicker(){
-  stopTurnTimer();
+  stopQTimer();
+  S.activeTeam = S.turnNo % S.teams.length;
   $('topbarPicker').innerHTML = topbarHTML(`<span class="badge">🎯 Pilih mapel${S.diffSetting?` • ${DIFF[S.diffSetting].dot} ${DIFF[S.diffSetting].label}`:''}</span>`);
   $('pickGrid').innerHTML = S.order.map(sub=>{
     const left = poolFor(sub).length;
@@ -1033,7 +1074,7 @@ function renderPicker(){
       const off = S.diffSetting && d!==S.diffSetting;
       return `<span class="${rem[d]===0||off?'zero':''}">${DIFF[d].dot} ${off?'–':rem[d]}</span>`;
     }).join(' &nbsp; ');
-    return `<button class="pick" ${done?'disabled':''} onclick="startRound('${esc(sub.name).replace(/'/g,"\\'")}')">
+    return `<button class="pick" ${done?'disabled':''} onclick="startClimb('${esc(sub.name).replace(/'/g,"\\'")}')">
       <div class="ic" style="background:${sub.color}22">${sub.icon}</div>
       <div><div class="pn">${esc(sub.name)}</div>
       <div class="pc">${done ? (S.diffSetting?'✔ level ini habis':'✔ selesai dimainkan') : 'Soal tersisa: ' + left}</div>
@@ -1043,168 +1084,363 @@ function renderPicker(){
   showScreen('screen-picker');
 }
 
-function pickQuestion(sub){
-  const pool = poolFor(sub);
+/* ================= PEMBANGUNAN TANGGA ================= */
+function takeQuestion(sub, d){
+  let pool = d ? poolByDiff(sub, d) : poolFor(sub);
+  if(!pool.length) pool = poolFor(sub);
   if(!pool.length) return -1;
   const qi = pool[Math.floor(Math.random()*pool.length)];
   S.used[sub.name].add(qi);
   return qi;
 }
-
-function loadRound(sub, qi, keepControl){
-  S.round = {
-    sub, qi,
-    d: sub.questions[qi].d || 2,
-    answers: sub.questions[qi].answers.map(a=>({t:a.t,p:a.p,a:a.a||[],revealed:false})),
-    bank:0, strikes:0, phase:'play',
-    control: keepControl ? S.round.control : (S.roundNo-1)%2
-  };
-  S.timer = {left:S.timerSetting, total:S.timerSetting||1, int:null};
-  renderBoard();
-  startTurnTimer();
+/* Kunci = answers[0].t; distraktor = kunci soal LAIN dalam mapel yang sama */
+function buildOptions(sub, qi){
+  const key = sub.questions[qi].answers[0].t;
+  const pool = [];
+  sub.questions.forEach((qq,j)=>{
+    if(j===qi) return;
+    const cand = qq.answers[0].t;
+    if(cand && norm(cand) !== norm(key)) pool.push(cand);
+  });
+  const picked = [];
+  for(const c of shuffle(pool)){
+    if(picked.length >= 3) break;
+    if(picked.some(p => norm(p) === norm(c))) continue;
+    picked.push(c);
+  }
+  if(picked.length < 3){
+    const alt = sub.questions[qi].answers.slice(1).map(a=>a.t);
+    for(const c of alt){
+      if(picked.length >= 3) break;
+      if(norm(c) === norm(key) || picked.some(p => norm(p) === norm(c))) continue;
+      picked.push(c);
+    }
+  }
+  return shuffle([{t:key, correct:true}, ...picked.slice(0,3).map(t=>({t, correct:false}))]);
 }
 
-function startRound(subjectName){
+function startClimb(subjectName){
   const sub = SUBJECTS.find(s=>s.name===subjectName);
-  const qi = pickQuestion(sub);
-  if(qi < 0){ renderPicker(); return; }
-  loadRound(sub, qi, false);
+  const avail = poolFor(sub).length;
+  if(avail === 0){ renderPicker(); return; }
+  /* Panjang tangga menyesuaikan soal yang tersisa (maks 15) */
+  const n = Math.min(STEPS, avail);
+  const dPlan = [];
+  for(let step=1; step<=n; step++){
+    let d;
+    if(S.diffSetting) d = S.diffSetting;
+    else if(n >= 15){ d = step<=5 ? 1 : (step<=10 ? 2 : 3); }
+    else if(n >= 6){ d = step<=Math.ceil(n/3) ? 1 : (step<=Math.ceil(2*n/3) ? 2 : 3); }
+    else d = [1,2,3][(step-1)%3];
+    dPlan.push(d);
+  }
+  const qs = [];
+  for(let step=1; step<=n; step++){
+    const qi = takeQuestion(sub, dPlan[step-1]);
+    if(qi < 0){ fsToast('⚠️ Soal tidak cukup untuk membangun tangga di mapel ini.'); return; }
+    qs.push(qi);
+  }
+  S.round = {
+    sub, qs, n, step:0,
+    options: qs.map(qi => buildOptions(sub, qi)),
+    locked:-1, lifelines:{fifty:true, audience:true, phone:true},
+    phase:'play'
+  };
+  renderBoard();
+  showScreen('screen-board');
+  startQTimer();
 }
 
-function swapQuestion(){
-  const r = S.round;
-  if(!r || r.phase==='done'){ fsToast('⚠️ Tidak ada ronde aktif untuk ditukar.'); return; }
-  const sub = r.sub;
-  const qi = pickQuestion(sub);
-  if(qi < 0){ fsToast('⚠️ Tidak ada soal lain yang tersedia untuk ditukar.'); return; }
-  loadRound(sub, qi, true);
+/* ================= LOGIKA TANGGA ================= */
+function safeAtOrBelow(stepIdx){ // stepIdx 0-based soal yang dijawab; hadiah aman <= soal ini
+  const n = (S.round && S.round.n) || STEPS;
+  for(let i=Math.min(stepIdx, n-1); i>=0; i--){
+    if(LADDER[i].safe) return LADDER[i].p;
+  }
+  return 0;
 }
 
-function currentAnswerer(){
+function renderLadder(){
   const r = S.round;
-  return r.phase==='steal' ? 1-r.control : r.control;
+  const n = r ? r.n : STEPS;
+  const rows = LADDER.slice(0,n).map((L,i)=>{
+    const no = i+1;
+    const cls = (r && no===r.step+1 ? 'cur ' : '') + (r && no<=r.step ? 'passed ' : '') + (L.safe?'safe':'');
+    return `<div class="rung ${cls}"><span>${no}. Rp ${fmtPoin(L.p)}</span>${L.safe?'<span class="sv">🛡 AMAN</span>':''}</div>`;
+  }).reverse().join('');
+  const fallback = r ? `Salah di soal ${r.step+1} = pulang bawa <span class="sv">Rp ${fmtPoin(safeAtOrBelow(r.step))}</span>` : '';
+  $('ladderBox').innerHTML = rows + `<div class="ladderfoot">🛡 = hadiah aman.<br>${fallback}</div>`;
 }
 
 function renderBoard(){
   const r = S.round;
-  const D = DIFF[r.d];
-  $('topbarBoard').innerHTML = topbarHTML(
-    `<span class="badge">${r.sub.icon} ${esc(r.sub.name)}</span>
-     ${S.diffSetting ? `<span class="badge" style="background:${D.color}30;border-color:${D.color}88">${D.dot} ${D.label}</span>` : ''}`);
-  $('qText').textContent = r.sub.questions[r.qi].q;
-  $('bankVal').textContent = r.bank;
-  $('strikeRow').innerHTML = [0,1,2].map(i=>
-    `<div class="strike ${i < r.strikes ? 'on':''}">✖</div>`).join('');
-  $('stealSlot').innerHTML = r.phase==='steal'
-    ? `<div class="stealbar">🕵️ PELUANG MENCURI POIN! Giliran ${esc(S.teams[1-r.control].name)} — cukup 1 jawaban!</div>` : '';
-  $('answerGrid').innerHTML = r.answers.map((a,i)=>{
-    if(a.revealed){
-      return `<button class="tile" disabled>
-        <div class="showface"><span>${esc(a.t)}</span><span class="pts">${a.p}</span></div></button>`;
-    }
-    return `<button class="tile" onclick="revealTile(${i})">
-      <div class="hiddenface"><span class="num">${i+1}</span>?</div></button>`;
+  if(!r) return;
+  $('topbarBoard').innerHTML = topbarHTML(`<span class="badge">${r.sub.icon} ${esc(r.sub.name)}</span>`);
+  renderLadder();
+  const qi = r.qs[r.step];
+  const q = r.sub.questions[qi];
+  const D = DIFF[q.d||2];
+  $('qMeta').textContent = `Soal ${r.step+1} • ${D.dot} ${D.label} • ${LADDER[r.step].p} poin`;
+  $('qText').textContent = q.q;
+  renderLifelines();
+  const reveal = r.phase==='reveal' || r.phase==='done';
+  $('optGrid').innerHTML = r.options[r.step].map((o,i)=>{
+    const letter = 'ABCD'[i];
+    let cls = 'opt';
+    if(r.locked===i) cls += ' locked';
+    if(o.hidden) cls += ' dim';
+    if(reveal && o.correct) cls = 'opt right';
+    else if(reveal && r.locked===i && !o.correct) cls += ' wrong';
+    const dis = r.phase!=='play' || o.hidden;
+    return `<button class="${cls}" ${dis?'disabled':''} onclick="pickOpt(${i})">
+      <span class="letter">${letter}</span><span class="otext">${esc(o.t)}</span></button>`;
   }).join('');
-  const inp = $('ansInput');
-  inp.disabled = r.phase==='done';
-  inp.value = '';
-  inp.placeholder = r.phase==='steal'
-    ? `Peluang mencuri: jawaban ${esc(S.teams[1-r.control].name)}…`
-    : `Ketik jawaban ${esc(S.teams[currentAnswerer()].name)} lalu Enter…`;
-  inp.onkeydown = e => { if(e.key==='Enter') submitAnswer(); };
+  const lb = $('lockBtn');
+  lb.disabled = !(r.phase==='play' && r.locked>=0);
+  lb.textContent = r.locked>=0 ? 'Kunci Jawaban 🔒' : 'Pilih opsi dulu…';
   renderTimer();
-  showScreen('screen-board');
-  setTimeout(()=>inp.focus(),50);
 }
 
-/* ================= GAME LOGIC ================= */
-function revealTile(i, silent=false){
+function renderLifelines(){
   const r = S.round;
-  if(!r || r.phase==='done' || r.answers[i].revealed) return;
-  r.answers[i].revealed = true;
-  r.bank += r.answers[i].p;
-  if(!silent) sReveal();
-  if(r.answers.every(a=>a.revealed)){
+  const defs = [
+    ['fifty','50:50','HAPUS 2'],
+    ['audience','👥','TANYA'],
+    ['phone','📞','TEMAN']
+  ];
+  $('llRow').innerHTML = defs.map(([k,icon,sub])=>{
+    const on = r.lifelines[k] && r.phase==='play' && r.locked<0;
+    return `<button class="ll ${on?'ready':''}" ${on?'':'disabled'} onclick="useLifeline('${k}')" title="${k==='fifty'?'50:50 — hapus 2 jawaban salah':(k==='audience'?'Tanya audiens kelas':'Telepon teman')}">${icon}<small class="fl">${sub}</small></button>`;
+  }).join('');
+}
+
+/* ================= LIFELINES ================= */
+function useLifeline(kind){
+  const r = S.round;
+  if(!r || r.phase!=='play' || !r.lifelines[kind] || r.locked>=0) return;
+  r.lifelines[kind] = false;
+  if(kind==='fifty'){
+    const wrongs = r.options[r.step].map((o,i)=>({o,i})).filter(x=>!x.o.correct);
+    shuffle(wrongs).slice(0,2).forEach(x => r.options[r.step][x.i].hidden = true);
+    sSelect();
+    fsToast('💡 50:50 — dua jawaban salah dihapus!');
     renderBoard();
-    endRound(r.phase==='steal' ? 1-r.control : r.control);
-  } else {
-    S.timer = {left:S.timerSetting, total:S.timerSetting||1, int:null};
-    renderBoard();
-    startTurnTimer();
+  } else if(kind==='audience'){
+    sSelect();
+    showAudience();
+  } else if(kind==='phone'){
+    sSelect();
+    showPhone();
   }
 }
 
-function submitAnswer(){
+function liveOptions(){
   const r = S.round;
-  if(!r || r.phase==='done') return;
-  const raw = $('ansInput').value;
-  if(!raw.trim()) return;
-  const hits = findMatches(raw);
-  if(hits.length){
-    sCorrect();
-    hits.forEach(i => revealTile(i, true));
-    if(r.answers.every(a=>a.revealed)) confetti(90);
-  } else {
-    doStrike();
-  }
+  return r.options[r.step].map((o,i)=>({o,i})).filter(x=>!x.o.hidden);
 }
 
-function doStrike(fromTimeout=false){
+function showAudience(){
   const r = S.round;
-  if(!r || r.phase==='done') return;
-  if(!fromTimeout) sStrike();
-  if(r.phase==='play'){
-    r.strikes++;
-    if(r.strikes >= 3){
-      r.phase = 'steal';
-    }
-    S.timer = {left:S.timerSetting, total:S.timerSetting||1, int:null};
-    renderBoard();
-    startTurnTimer();
-  } else { // steal gagal
-    endRound(r.control);
-  }
+  const live = liveOptions();
+  let bias = r.step < 5 ? .68 : (r.step < 10 ? .55 : .42);
+  let weights = live.map(x => x.o.correct ? bias + Math.random()*.15 : (1-bias)/Math.max(1,live.length-1));
+  const tot = weights.reduce((a,b)=>a+b,0);
+  const pcts = weights.map(w => Math.max(1, Math.round(w/tot*100)));
+  pcts[pcts.length-1] += 100 - pcts.reduce((a,b)=>a+b,0);
+  const bars = live.map((x,k)=>{
+    const p = Math.max(1, pcts[k]);
+    return `<div style="display:flex;align-items:center;gap:8px;margin:6px 0;">
+      <b style="width:22px;color:#b45309;">${'ABCD'[x.i]}</b>
+      <div style="flex:1;background:#e2e8f0;border-radius:99px;height:22px;overflow:hidden;">
+        <div style="width:${p}%;height:100%;background:linear-gradient(90deg,#3b82f6,#93c5fd);"></div>
+      </div>
+      <b style="width:44px;text-align:right;color:#1d4ed8;">${p}%</b>
+    </div>`;
+  }).join('');
+  $('resultBox').innerHTML = `
+    <div class="big">👥 Audiens Berbicara…</div>
+    <div class="sub">Perkiraan suara kelas (tidak selalu benar!)</div>
+    ${bars}
+    <button class="btn" onclick="closeOverlay()">Lanjut ➜</button>`;
+  $('overlay').classList.add('show');
 }
 
-function revealAllHost(){
+function showPhone(){
   const r = S.round;
-  if(!r || r.phase==='done') return;
-  r.answers.forEach(a => a.revealed = true);
+  const live = liveOptions();
+  const correct = live.find(x=>x.o.correct);
+  const names = ['Bunda','Ayah','Kakak','Bu Guru','Pak Guru','Teman Sebangku'];
+  const name = names[Math.floor(Math.random()*names.length)];
+  const confident = r.step < 5 ? .8 : (r.step < 10 ? .6 : .4);
+  const pick = (correct && Math.random() < confident) ? correct : shuffle(live)[0];
+  const sure = pick === correct;
+  $('resultBox').innerHTML = `
+    <div class="big">📞 ${esc(name)} berkata…</div>
+    <div class="sub">"Hmm, menurutku jawabannya <b style="color:#b45309;">${'ABCD'[pick.i]}</b> — ${esc(pick.o.t)}${sure ? '. Aku cukup yakin!"' : '… tapi aku kurang yakin, ya!"'}</div>
+    <button class="btn" onclick="closeOverlay()">Lanjut ➜</button>`;
+  $('overlay').classList.add('show');
+}
+function closeOverlay(){ $('overlay').classList.remove('show'); }
+
+/* ================= JAWAB ================= */
+function pickOpt(i){
+  const r = S.round;
+  if(!r || r.phase!=='play') return;
+  if(r.options[r.step][i].hidden) return;
+  if(r.locked === i){ lockIn(); return; } // klik opsi terkunci = langsung kunci
+  r.locked = i;
+  sSelect();
   renderBoard();
-  endRound(null); // poin hangus
+}
+function lockIn(){
+  const r = S.round;
+  if(!r || r.phase!=='play' || r.locked<0) return;
+  const choice = r.locked;
+  sLock();
+  r.phase = 'suspense';
+  stopQTimer();
+  renderBoard();
+  setTimeout(()=>{
+    if(!S.round || S.round.phase!=='suspense') return;
+    const correct = r.options[r.step][choice].correct;
+    resolveAnswer(correct);
+  }, 1400);
+}
+document.addEventListener('keydown', e=>{
+  if(e.key==='Enter'){
+    const r = S.round;
+    if(r && r.phase==='play' && r.locked>=0 && !timerPaused()){
+      lockIn();
+    }
+  }
+});
+
+function resolveAnswer(correct, timeout=false){
+  stopQTimer();
+  const r = S.round;
+  if(!r) return;
+  r.phase = 'reveal';
+  r.timeout = timeout;
+  r.lastCorrect = correct;
+  if(correct){ sCorrect(); confetti(120); } else { sWrong(); }
+  renderBoard();
+  setTimeout(()=>{ finishClimb(); }, correct ? 900 : 1300);
 }
 
-function endRound(winner){
-  stopTurnTimer();
+function finishClimb(){
   const r = S.round;
-  r.phase = 'done';
-  let title, sub, pts = 0;
-  if(winner === null){
-    title = 'Jawaban Dibuka Semua 👀'; sub = 'Poin ronde hangus.'; 
+  if(!r) return;
+  const team = S.teams[S.turnNo % S.teams.length];
+  const step = r.step; // 0-based soal yang baru dijawab
+  let gained = 0, title, sub;
+  if(r.phase === 'walk'){
+    gained = step > 0 ? LADDER[step-1].p : 0;
+    title = `🏳️ ${esc(team.name)} Berhenti dengan Aman`;
+    sub = step > 0 ? `Membawa hadiah dari soal ${step}.` : 'Belum ada hadiah yang diraih.';
+  } else if(r.lastCorrect){
+    gained = LADDER[step].p;
+    title = `🎉 ${esc(team.name)} MENCAPAI PUNCAK!`;
+    sub = `Soal ${step+1} benar — hadiah penuh!`;
+    sWin(); confetti(180);
   } else {
-    pts = r.bank;
-    S.teams[winner].score += pts;
-    title = `🎉 ${esc(S.teams[winner].name)} Menang Ronde!`;
-    sub = `Ronde ${S.roundNo} • ${esc(r.sub.name)}`;
-    sWin(); confetti(140);
+    gained = safeAtOrBelow(step);
+    title = r.timeout ? `⏰ Waktu Habis — ${esc(team.name)}` : `💔 Jawaban Salah — ${esc(team.name)}`;
+    sub = gained > 0 ? `Tetap membawa hadiah aman 🛡 dari soal ${safeStepBelow(step)}.` : 'Sayang sekali, hadiah hangus.';
   }
+  team.score += gained;
+  r.phase = 'done';
+  renderBoard();
+  const mini = LADDER.slice(0, r.n).map((L,i)=>{
+    const no = i+1;
+    let cls = L.safe ? 'safe' : '';
+    if(no <= step) cls += ' passed';
+    if(no === step+1 && r.lastCorrect) cls += ' cur';
+    return `<div class="rung ${cls}"><span>${no}. Rp ${fmtPoin(L.p)}</span>${L.safe?'<span class="sv">🛡</span>':''}</div>`;
+  }).reverse().join('');
   $('resultBox').innerHTML = `
     <div class="big">${title}</div>
-    ${winner!==null ? `<div class="pts">+${pts} POIN</div>` : `<div class="pts" style="font-size:44px">💀</div>`}
+    <div class="pts">+${fmtPoin(gained)} <small>poin</small></div>
     <div class="sub">${sub}</div>
-    <button class="btn" onclick="nextRound()">${S.roundNo>=TOTAL_ROUNDS?'HASIL AKHIR 🏆':'Ronde Berikutnya ➜'}</button>`;
+    <div class="miniladder">${mini}</div>
+    <button class="btn" onclick="nextTurn()">${S.turnNo+1 >= S.teams.length ? 'HASIL AKHIR 🏆' : 'Giliran Tim Berikutnya ➜'}</button>`;
   $('overlay').classList.add('show');
-  renderBoard(); // refresh skor di topbar
+}
+function safeStepBelow(stepIdx){
+  const n = (S.round && S.round.n) || STEPS;
+  for(let i=Math.min(stepIdx, n-1); i>=0; i--){
+    if(LADDER[i].safe) return i+1;
+  }
+  return 0;
 }
 
-function nextRound(){
-  stopTurnTimer();
-  $('overlay').classList.remove('show');
-  S.roundNo++;
-  if(S.roundNo > TOTAL_ROUNDS){ renderOver(); }
+function walkAwayUI(){
+  const r = S.round;
+  if(!r || r.phase!=='play') return;
+  if(r.step === 0){
+    fsToast('ℹ️ Belum ada hadiah — jawab dulu soal pertama!');
+    return;
+  }
+  if(!confirm('Berhenti sekarang dan membawa hadiah yang sudah diraih?')) return;
+  stopQTimer();
+  r.phase = 'walk';
+  sLock();
+  finishClimb();
+}
+
+function nextTurn(){
+  closeOverlay();
+  S.turnNo++;
+  S.round = null;
+  stopQTimer();
+  if(S.turnNo >= S.teams.length){ renderOver(); }
   else { renderPicker(); }
 }
 
+function swapQuestion(){
+  const r = S.round;
+  if(!r || r.phase!=='play'){ fsToast('⚠️ Tidak ada soal aktif untuk ditukar.'); return; }
+  if(r.step !== 0){ fsToast('⚠️ Ganti soal hanya berlaku di soal pertama tangga.'); return; }
+  const sub = r.sub;
+  const qi = takeQuestion(sub, S.diffSetting || 1);
+  if(qi < 0){ fsToast('⚠️ Tidak ada soal lain yang tersedia.'); return; }
+  r.qs[0] = qi;
+  r.options[0] = buildOptions(sub, qi);
+  r.locked = -1;
+  r.lifelines = {fifty:true, audience:true, phone:true};
+  fsToast('🔄 Soal pertama diganti — bantuan dikembalikan!');
+  renderBoard();
+  startQTimer();
+}
+
+function hostReveal(){
+  const r = S.round;
+  if(!r || r.phase!=='play'){ fsToast('⚠️ Tidak ada soal aktif.'); return; }
+  stopQTimer();
+  r.phase = 'reveal';
+  r.lastCorrect = false;
+  renderBoard();
+  const ci = r.options[r.step].findIndex(o=>o.correct);
+  $('resultBox').innerHTML = `
+    <div class="big">👀 Jawaban Dibuka Guru</div>
+    <div class="pts" style="font-size:40px;">${'ABCD'[ci]}</div>
+    <div class="sub">${esc(r.options[r.step][ci].t)}<br>Poin tangga ini hangus (tidak masuk skor).</div>
+    <button class="btn" onclick="hostSkip()">Lanjut ➜</button>`;
+  $('overlay').classList.add('show');
+}
+function hostSkip(){
+  closeOverlay();
+  const r = S.round;
+  if(r){ r.phase = 'done'; }
+  nextTurn();
+}
+
+function quitToPicker(){
+  stopQTimer();
+  S.round = null;
+  renderPicker();
+}
+
+/* ================= GAME OVER ================= */
 function renderOver(){
   const [a,b] = S.teams;
   let text;
@@ -1213,7 +1449,7 @@ function renderOver(){
   $('winnerText').textContent = text;
   $('finalScores').innerHTML = S.teams.map(t=>
     `<div class="fbox ${t.score === Math.max(a.score,b.score) ? 'win':''}">
-      <div class="fn">${esc(t.name)}</div><div class="fs">${t.score}</div></div>`).join('');
+      <div class="fn">${esc(t.name)}</div><div class="fs2">${t.score}</div></div>`).join('');
   const res = recordMatch();
   lbNewDate = res.entryDate;
   $('recordSlot').innerHTML = res.isNewRecord
@@ -1231,14 +1467,9 @@ function renderOver(){
 
 function playAgain(){
   S.teams[0].score = 0; S.teams[1].score = 0;
-  S.roundNo = 1;
+  S.turnNo = 0;
   S.order = shuffle(SUBJECTS);
   S.used = {}; SUBJECTS.forEach(s => S.used[s.name] = new Set());
-  renderPicker();
-}
-
-function quitToPicker(){
-  if(S.round) S.round.phase = 'done';
   renderPicker();
 }
 </script>
